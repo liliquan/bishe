@@ -7,7 +7,7 @@
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown hidden-xs">
-                    <a href="/" target="_blank"><i class="fa fa-home"></i> 站点主页</a>
+                    <a href="/admins/index" target="_blank"><i class="fa fa-home"></i> 站点主页</a>
                 </li>
             </ul>
         </nav>

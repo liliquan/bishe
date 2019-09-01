@@ -23,14 +23,14 @@
                         @if($item->type == 1)
                         <tr>
                             <td class="text-center">{{$item->id}}</td>
-                            <td class="text-center">{{$item->admin->name}}</td>
+                            <td class="text-center">{{$item->admin['name']}}</td>
                             <td class="text-center">
-                                @foreach($item->admin->roles as $role)
-                                    {{$role->name}}
-                                @endforeach
+{{--                                @foreach($item->admin['roles'] as $role)--}}
+{{--                                    {{$role->name}}--}}
+{{--                                @endforeach--}}
                             </td>
                             <td>{{$item->data['action']}}</td>
-                            <td class="text-center">{{$item->data['ip']}}<br>来自：{{$item->data['address']}}</td>
+                            <td class="text-center">{{$item->data['ip']}}<br>来自：{{$item->admin['address']}}</td>
                             <td class="text-center">{{$item->created_at->diffForHumans()}}</td>
                             <td class="text-center">
                                 <form class="form-common" action="{{route('actions.destroy',$item->id)}}" method="post">

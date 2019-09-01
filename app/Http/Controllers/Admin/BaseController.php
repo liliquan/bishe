@@ -23,7 +23,7 @@ class BaseController extends Controller
         $module = $this->getModule();
         $controller = $currentAction['controller'];
         $action = $view ? $view : $currentAction['action'];
-        $view_path = "{$module}.{$controller}.{$action}";
+        $view_path = "admin.{$controller}.{$action}";
 
         return view($view_path, $data, $mergeData);
     }

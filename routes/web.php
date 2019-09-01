@@ -5,7 +5,7 @@
  */
 
 /**后台模块**/
-Route::group(['namespace' => 'Admin','prefix' => 'admin'], function (){
+Route::group(['namespace' => 'Admin','prefix' => 'admins'], function (){
 
     Route::get('login','AdminsController@showLoginForm')->name('login');  //后台登陆页面
 
