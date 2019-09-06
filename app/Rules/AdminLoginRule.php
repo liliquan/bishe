@@ -13,10 +13,10 @@ class AdminLoginRule implements Rule
     protected $adminsRepository;
 
     /**
- * AdminLoginRule constructor.
- * @param AdminsRepository $adminsRepository
- */
-    public function __construct(AdminsRepository $adminsRepository,$name)
+     * AdminLoginRule constructor.
+     * @param AdminsRepository $adminsRepository
+     */
+    public function __construct(AdminsRepository $adminsRepository, $name)
     {
         $this->name = $name;
 
@@ -26,18 +26,18 @@ class AdminLoginRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
     {
         $admin = $this->adminsRepository->ByName($this->name);
 
-        if(is_null($admin)) return false;
+        if (is_null($admin)) return false;
 
         //验证密码是否正确
-        return Hash::check($value,$admin->password) ? true : false;
+        return Hash::check($value, $admin->password) ? true : false;
     }
 
     /**

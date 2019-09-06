@@ -4,9 +4,9 @@
 <p id="wait" class="show">正在加载验证码...</p>
 @define use Illuminate\Support\Facades\Config
 <script>
-    var geetest = function(url) {
-        var handlerEmbed = function(captchaObj) {
-            $("#geetest-captcha").closest('form').submit(function(e) {
+    var geetest = function (url) {
+        var handlerEmbed = function (captchaObj) {
+            $("#geetest-captcha").closest('form').submit(function (e) {
                 var validate = captchaObj.getValidate();
                 if (!validate) {
                     alert('{{ Config::get('geetest.client_fail_alert')}}');
@@ -14,7 +14,7 @@
                 }
             });
             captchaObj.appendTo("#geetest-captcha");
-            captchaObj.onReady(function() {
+            captchaObj.onReady(function () {
                 $("#wait")[0].className = "hide";
             });
             if ('{{ $product }}' == 'popup') {
@@ -26,7 +26,7 @@
             url: url + "?t=" + (new Date()).getTime(),
             type: "get",
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 initGeetest({
                     gt: data.gt,
                     challenge: data.challenge,
@@ -40,7 +40,7 @@
             }
         });
     };
-    (function() {
+    (function () {
         geetest('{{ $url?$url:Config::get('geetest.url', 'geetest') }}');
     })();
 </script>

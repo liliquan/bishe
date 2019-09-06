@@ -39,8 +39,8 @@ class AdminLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => 'required',
-            'password'          => ['required', new AdminLoginRule($this->adminsRepository, \Request::get('name'))],
+            'name' => 'required',
+            'password' => ['required', new AdminLoginRule($this->adminsRepository, \Request::get('name'))],
             'geetest_challenge' => 'geetest'
         ];
     }
@@ -52,9 +52,9 @@ class AdminLoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => '管理员名称不能为空',
+            'name.required' => '管理员名称不能为空',
             'password.required' => '密码不能为空',
-            'geetest'           => '验证码校验失败',
+            'geetest' => '验证码校验失败',
         ];
     }
 }

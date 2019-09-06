@@ -1,18 +1,5 @@
 <?php
-/**
- * YICMS
- * ============================================================================
- * 版权所有 2014-2017 YICMS，并保留所有权利。
- * 网站地址: http://www.yicms.vip
- * ----------------------------------------------------------------------------
- * 这不是一个自由软件！
- * 不允许对程序代码以任何形式任何目的的再发布。
- * ============================================================================
- * Created by PhpStorm.
- * Author: kenuo
- * Date: 2017/11/12
- * Time: 下午6:03
- */
+
 
 namespace App\Handlers;
 
@@ -29,9 +16,8 @@ class ImageUploadHandler
      */
     public function save($file, $folder)
     {
-        // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21/
         // 文件夹切割能让查找效率更高。
-        $folder_name = "uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        $folder_name = "uploads/images/$folder/" . date("Ym", time()) . '/' . date("d", time()) . '/';
 
         // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
         // 值如：/home/vagrant/Code/larabbs/public/uploads/images/avatars/201709/21/
@@ -45,7 +31,7 @@ class ImageUploadHandler
         $filename = time() . '_' . str_random(10) . '.' . $extension;
 
         // 如果上传的不是图片将终止操作
-        if ( ! in_array($extension, $this->allowed_ext)) {
+        if (!in_array($extension, $this->allowed_ext)) {
             return false;
         }
 

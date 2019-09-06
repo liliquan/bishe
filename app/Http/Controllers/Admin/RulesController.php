@@ -26,7 +26,7 @@ class RulesController extends BaseController
     {
         $rules = $this->rulesService->getRulesTree();
 
-        return $this->view(null,compact('rules'));
+        return $this->view(null, compact('rules'));
     }
 
     /**
@@ -36,7 +36,7 @@ class RulesController extends BaseController
     {
         $rules = $this->rulesService->getRulesTree();
 
-        return $this->view(null,compact('rules'));
+        return $this->view(null, compact('rules'));
     }
 
     /**
@@ -62,7 +62,7 @@ class RulesController extends BaseController
         $rules = $this->rulesService->getRulesTree();
         $rule = $this->rulesService->ById($id);
 
-        return $this->view(null,compact('rule','rules'));
+        return $this->view(null, compact('rule', 'rules'));
     }
 
     /**
@@ -73,8 +73,7 @@ class RulesController extends BaseController
     public function update(RuleRequest $request, $id)
     {
         $rule = $this->rulesService->ById($id);
-        if(is_null($rule))
-        {
+        if (is_null($rule)) {
             flash('你无权操作')->error()->important();
         }
 
@@ -92,8 +91,7 @@ class RulesController extends BaseController
     {
         $rule = $this->rulesService->ById($id);
 
-        if(empty($rule))
-        {
+        if (empty($rule)) {
             flash('删除失败')->error()->important();
 
             return redirect()->route('rules.index');
@@ -111,18 +109,17 @@ class RulesController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function status($status,$id)
+    public function status($status, $id)
     {
         $rule = $this->rulesService->ById($id);
 
-        if(empty($rule))
-        {
+        if (empty($rule)) {
             flash('操作失败')->error()->important();
 
             return redirect()->route('rules.index');
         }
 
-        $rule->update(['is_hidden'=>$status]);
+        $rule->update(['is_hidden' => $status]);
 
         flash('更新状态成功')->success()->important();
 

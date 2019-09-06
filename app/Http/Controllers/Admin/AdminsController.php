@@ -8,7 +8,8 @@ use App\Services\AdminsService;
 use App\Repositories\RolesRepository;
 use App\Http\Requests\Admin\AdminLoginRequest;
 
-class AdminsController extends BaseController {
+class AdminsController extends BaseController
+{
     protected $adminsService;
 
     protected $rolesRepository;
@@ -147,7 +148,7 @@ class AdminsController extends BaseController {
     {
         $result = $this->adminsService->login($request);
 
-        if ( !$result) {
+        if (!$result) {
             return viewError('登录失败', 'login');
         }
 

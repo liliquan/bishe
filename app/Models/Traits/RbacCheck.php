@@ -1,18 +1,4 @@
 <?php
-/**
- * YICMS
- * ============================================================================
- * 版权所有 2014-2017 YICMS，并保留所有权利。
- * 网站地址: http://www.yicms.vip
- * ----------------------------------------------------------------------------
- * 这不是一个自由软件！
- * 不允许对程序代码以任何形式任何目的的再发布。
- * ============================================================================
- * Created by PhpStorm.
- * Author: kenuo
- * Date: 2017/11/17
- * Time: 下午2:30
- */
 
 namespace App\Models\Traits;
 
@@ -35,8 +21,7 @@ trait RbacCheck
     {
         $cache_key = $this->id . $this->cache_key;
 
-        if(!Cache::tags(['rbac', 'rules'])->has($cache_key))
-        {
+        if (!Cache::tags(['rbac', 'rules'])->has($cache_key)) {
             $permissions = [];
 
             foreach ($this->roles as $role) {
@@ -61,30 +46,26 @@ trait RbacCheck
     {
         $menu_cache = $this->id . $this->menu_cache;
 
-        if (!Cache::tags(['rbac', 'menus'])->has($menu_cache))
-        {
+        if (!Cache::tags(['rbac', 'menus'])->has($menu_cache)) {
             $rules = [];
             //判断是否是超级管理员用户组
-            if (in_array(1, $this->roles->pluck('id')->toArray()))
-            {
+            if (in_array(1, $this->roles->pluck('id')->toArray())) {
                 //超级管理员用户组获取全部权限数据
                 $rules = (new RulesRepository())->getRulesAndPublic()->toArray();
 
             } else {
 
-                foreach ($this->roles as $role)
-                {
+                foreach ($this->roles as $role) {
                     $rules = array_merge($rules, $role->rulesPublic()->toArray());
                 }
 
-                if($rules)
-                {
+                if ($rules) {
                     $rules = unique_arr($rules);
                 }
             }
 
             /**将权限路由存入缓存中*/
-            Cache::tags(['rbac', 'menus'])->put($menu_cache, $rules,86400);
+            Cache::tags(['rbac', 'menus'])->put($menu_cache, $rules, 86400);
         }
 
 

@@ -1,4 +1,5 @@
 /*global plupload */
+
 /*global qiniu */
 function FileProgress(file, targetID) {
     this.fileProgressID = file.id;
@@ -68,21 +69,21 @@ function FileProgress(file, targetID) {
     this.setTimer(null);
 }
 
-FileProgress.prototype.setTimer = function(timer) {
+FileProgress.prototype.setTimer = function (timer) {
     this.fileProgressWrapper.FP_TIMER = timer;
 };
 
-FileProgress.prototype.getTimer = function(timer) {
+FileProgress.prototype.getTimer = function (timer) {
     return this.fileProgressWrapper.FP_TIMER || null;
 };
 
-FileProgress.prototype.reset = function() {
+FileProgress.prototype.reset = function () {
     this.fileProgressWrapper.attr('class', "progressContainer");
     this.fileProgressWrapper.find('td .progress .progress-bar-info').attr('aria-valuenow', 0).width('0%').find('span').text('');
     this.appear();
 };
 
-FileProgress.prototype.setChunkProgess = function(chunk_size) {
+FileProgress.prototype.setChunkProgess = function (chunk_size) {
     var chunk_amount = Math.ceil(this.file.size / chunk_size);
     if (chunk_amount === 1) {
         return false;
@@ -116,7 +117,7 @@ FileProgress.prototype.setChunkProgess = function(chunk_size) {
         progressBarChunk.append(col);
     }
 
-    if(!this.fileProgressWrapper.find('td:eq(2) .btn-default').length){
+    if (!this.fileProgressWrapper.find('td:eq(2) .btn-default').length) {
         this.fileProgressWrapper.find('td>div').append(viewProgess);
     }
     progressBarChunkTr.hide().find('td').append(progressBarChunk);
@@ -124,7 +125,7 @@ FileProgress.prototype.setChunkProgess = function(chunk_size) {
 
 };
 
-FileProgress.prototype.setProgress = function(percentage, speed, chunk_size) {
+FileProgress.prototype.setProgress = function (percentage, speed, chunk_size) {
     this.fileProgressWrapper.attr('class', "progressContainer green");
 
     var file = this.file;
@@ -133,7 +134,7 @@ FileProgress.prototype.setProgress = function(percentage, speed, chunk_size) {
     var size = plupload.formatSize(uploaded).toUpperCase();
     var formatSpeed = plupload.formatSize(speed).toUpperCase();
     var progressbar = this.fileProgressWrapper.find('td .progress').find('.progress-bar-info');
-    if (this.fileProgressWrapper.find('.status').text() === '取消上传'){
+    if (this.fileProgressWrapper.find('.status').text() === '取消上传') {
         return;
     }
     this.fileProgressWrapper.find('.status').text("已上传: " + size + " 上传速度： " + formatSpeed + "/s");
@@ -187,7 +188,7 @@ FileProgress.prototype.setProgress = function(percentage, speed, chunk_size) {
     this.appear();
 };
 
-FileProgress.prototype.setComplete = function(up, info) {
+FileProgress.prototype.setComplete = function (up, info) {
     var td = this.fileProgressWrapper.find('td:eq(2)'),
         tdProgress = td.find('.progress');
 
@@ -211,7 +212,7 @@ FileProgress.prototype.setComplete = function(up, info) {
     var progressNameTd = this.fileProgressWrapper.find('.progressName');
     var imageView = '?imageView2/1/w/100/h/100';
 
-    var isImage = function(url) {
+    var isImage = function (url) {
         var res, suffix = "";
         var imageSuffixes = ["png", "jpg", "jpeg", "gif", "bmp"];
         var suffixMatch = /\.([a-zA-Z0-9]+)(\?|\@|$)/;
@@ -256,7 +257,7 @@ FileProgress.prototype.setComplete = function(up, info) {
         $(img).attr('src', url);
 
         var height_space = 340;
-        $(img).on('load', function() {
+        $(img).on('load', function () {
             showImg.attr('src', url);
 
             linkWrapper.attr('href', url).attr('title', '查看原图');
@@ -269,7 +270,7 @@ FileProgress.prototype.setComplete = function(up, info) {
                 }
                 var newImg = new Image();
                 modalBody.find('img').attr('src', 'loading.gif');
-                newImg.onload = function() {
+                newImg.onload = function () {
                     modalBody.find('img').attr('src', url).data('key', key).data('h', height);
                     modalBody.find('.modal-body-wrapper').find('a').attr('href', url);
                 };
@@ -282,7 +283,7 @@ FileProgress.prototype.setComplete = function(up, info) {
             var fopLink = $('<a class="fopLink"/>');
             fopLink.attr('data-key', res.key).text('查看处理效果');
             infoWrapper.append(fopLink);
-            fopLink.on('click', function() {
+            fopLink.on('click', function () {
                 var key = $(this).data('key');
                 var height = parseInt($(this).parents('.Wrapper').find('.origin-height').text(), 10);
                 if (height > $(window).height() - height_space) {
@@ -309,10 +310,10 @@ FileProgress.prototype.setComplete = function(up, info) {
                     dy: 100
                 });
                 var url = Qiniu.pipeline(fopArr, key);
-                $('#myModal-img').on('hide.bs.modal', function() {
+                $('#myModal-img').on('hide.bs.modal', function () {
                     $('#myModal-img').find('.btn-default').removeClass('disabled');
                     $('#myModal-img').find('.text-warning').hide();
-                }).on('show.bs.modal', function() {
+                }).on('show.bs.modal', function () {
                     $('#myModal-img').find('.imageView').find('a:eq(0)').addClass('disabled');
                     $('#myModal-img').find('.watermark').find('a:eq(3)').addClass('disabled');
                     $('#myModal-img').find('.text-warning').hide();
@@ -344,20 +345,20 @@ FileProgress.prototype.setComplete = function(up, info) {
 
             Wrapper.append(infoWrapper);
 
-        }).on('error', function() {
+        }).on('error', function () {
             showImg.attr('src', 'default.png');
             Wrapper.addClass('default');
         });
     }
 };
-FileProgress.prototype.setError = function() {
+FileProgress.prototype.setError = function () {
     this.fileProgressWrapper.find('td:eq(2)').attr('class', 'text-warning');
     this.fileProgressWrapper.find('td:eq(2) .progress').css('width', 0).hide();
     this.fileProgressWrapper.find('button').hide();
     this.fileProgressWrapper.next('.chunk-status-tr').hide();
 };
 
-FileProgress.prototype.setCancelled = function(manual) {
+FileProgress.prototype.setCancelled = function (manual) {
     var progressContainer = 'progressContainer';
     if (!manual) {
         progressContainer += ' red';
@@ -368,17 +369,17 @@ FileProgress.prototype.setCancelled = function(manual) {
     this.fileProgressWrapper.find('td:eq(2) .progressCancel').hide();
 };
 
-FileProgress.prototype.setStatus = function(status, isUploading) {
+FileProgress.prototype.setStatus = function (status, isUploading) {
     if (!isUploading) {
         this.fileProgressWrapper.find('.status').text(status).attr('class', 'status text-left');
     }
 };
 
 // 绑定取消上传事件
-FileProgress.prototype.bindUploadCancel = function(up) {
+FileProgress.prototype.bindUploadCancel = function (up) {
     var self = this;
     if (up) {
-        self.fileProgressWrapper.find('td:eq(2) .progressCancel').on('click', function(){
+        self.fileProgressWrapper.find('td:eq(2) .progressCancel').on('click', function () {
             self.setCancelled(false);
             self.setStatus("取消上传");
             self.fileProgressWrapper.find('.status').css('left', '0');
@@ -388,7 +389,7 @@ FileProgress.prototype.bindUploadCancel = function(up) {
 
 };
 
-FileProgress.prototype.appear = function() {
+FileProgress.prototype.appear = function () {
     if (this.getTimer() !== null) {
         clearTimeout(this.getTimer());
         this.setTimer(null);

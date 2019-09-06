@@ -23,28 +23,22 @@ class RbacAuth
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         /**判断登录用户是否已经登录*/
-        if(!Auth::guard('admin')->check())
-        {
+        if (!Auth::guard('admin')->check()) {
             return redirect()->route('login');
         }
 
         /**记录用户操作日志**/
-        if(in_array($request->method(),['POST','PUT','PATCH','DELETE']))
-        {
+        if (in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])) {
             $this->actionLogsService->mudelActionLogCreate($request);
         }
 
-//        if(!Auth::guard('admin')->user()->hasRule(\Route::currentRouteName()))
-//        {
-//            return viewError('你无权访问','index.index');
-//        }
 
         return $next($request);
     }

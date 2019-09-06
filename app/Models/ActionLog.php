@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActionLog extends Model
 {
-    protected $fillable = ['admin_id','data'];
+    protected $fillable = ['admin_id', 'data'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -33,6 +33,6 @@ class ActionLog extends Model
      */
     public function getDataAttribute($value)
     {
-        return json_decode($value,true);
+        return json_decode($value, true);
     }
 }

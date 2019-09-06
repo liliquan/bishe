@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rule newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rule newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rule public()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rule public ()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rule query()
  * @mixin \Eloquent
  */

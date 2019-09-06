@@ -43,7 +43,8 @@ final class Tree
      * @param int $level 等级
      * @return array
      */
-    static public function channelList($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1){
+    static public function channelList($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1)
+    {
         $data = self::_channelList($data, $pid, $html, $fieldPri, $fieldPid, $level);
         if (empty($data))
             return $data;
@@ -60,15 +61,16 @@ final class Tree
             }
         }
         //更新key为栏目主键
-        $category=array();
-        foreach($data as $d){
-            $category[$d[$fieldPri]]=$d;
+        $category = array();
+        foreach ($data as $d) {
+            $category[$d[$fieldPri]] = $d;
         }
         return $category;
     }
 
     //只供channelList方法使用
-    static private function _channelList($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1){
+    static private function _channelList($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1)
+    {
         if (empty($data))
             return array();
         $arr = array();
@@ -93,7 +95,8 @@ final class Tree
      * @param string $fieldPid 父id
      * @return array
      */
-    static public function tree($data, $title, $fieldPri = 'cid', $fieldPid = 'pid'){
+    static public function tree($data, $title, $fieldPri = 'cid', $fieldPid = 'pid')
+    {
         if (!is_array($data) || empty($data))
             return array();
         $arr = Tree::channelList($data, 0, '', $fieldPri, $fieldPid);
@@ -131,7 +134,8 @@ final class Tree
      * @param string $fieldPid 父ID键名
      * @return array
      */
-    static public function parentChannel($data, $sid, $fieldPri = 'cid', $fieldPid = 'pid'){
+    static public function parentChannel($data, $sid, $fieldPri = 'cid', $fieldPid = 'pid')
+    {
         if (empty($data)) {
             return $data;
         } else {
@@ -158,7 +162,8 @@ final class Tree
      * @param string $fieldPid 父id字段
      * @return bool
      */
-    static function isChild($data, $sid, $pid, $fieldPri = 'cid', $fieldPid = 'pid'){
+    static function isChild($data, $sid, $pid, $fieldPri = 'cid', $fieldPid = 'pid')
+    {
         $_data = self::channelList($data, $pid, '', $fieldPri, $fieldPid);
         foreach ($_data as $c) {
             //目标栏目为源栏目的子栏目
@@ -175,7 +180,8 @@ final class Tree
      * @param string $fieldPid 父id表字段名
      * @return bool
      */
-    static function hasChild($data, $cid, $fieldPid = 'pid'){
+    static function hasChild($data, $cid, $fieldPid = 'pid')
+    {
         foreach ($data as $d) {
             if ($d[$fieldPid] == $cid) return true;
         }
@@ -188,7 +194,8 @@ final class Tree
      * @param array $tmp
      * @return array
      */
-    static function descarte($arr, $tmp = array()){
+    static function descarte($arr, $tmp = array())
+    {
         static $n_arr = array();
         foreach (array_shift($arr) as $v) {
             $tmp[] = $v;
@@ -209,17 +216,15 @@ final class Tree
      * @param int $level
      * @return array
      */
-    static function array_tree(array $data,$parent_id = 0,$level = 0)
+    static function array_tree(array $data, $parent_id = 0, $level = 0)
     {
         static $_tmp = array();
 
-        foreach ($data as $key => $item)
-        {
-            if($item['parent_id'] == $parent_id)
-            {
+        foreach ($data as $key => $item) {
+            if ($item['parent_id'] == $parent_id) {
                 foreach ($data as $k => $value) {
-                    if($value['parent_id'] == $item['id']){  //如果子级权限的parend_id等于顶级权限的id就说明这个权限是顶级权限的子级权限
-                        $item['children'][] = $value;	//然后把子权限放在一个新的数组里
+                    if ($value['parent_id'] == $item['id']) {  //如果子级权限的parend_id等于顶级权限的id就说明这个权限是顶级权限的子级权限
+                        $item['children'][] = $value;    //然后把子权限放在一个新的数组里
                     }
                 }
 

@@ -1,18 +1,4 @@
 <?php
-/**
- * YICMS
- * ============================================================================
- * 版权所有 2014-2017 YICMS，并保留所有权利。
- * 网站地址: http://www.yicms.vip
- * ----------------------------------------------------------------------------
- * 这不是一个自由软件！
- * 不允许对程序代码以任何形式任何目的的再发布。
- * ============================================================================
- * Created by PhpStorm.
- * Author: kenuo
- * Date: 2017/11/13
- * Time: 上午9:50
- */
 
 namespace App\Services;
 
@@ -35,7 +21,7 @@ class AdminsService
      * @param ImageUploadHandler $imageUploadHandler
      * @param ActionLogsService $actionLogsService
      */
-    public function __construct(AdminsRepository $adminsRepository, ImageUploadHandler $imageUploadHandler,ActionLogsService $actionLogsService)
+    public function __construct(AdminsRepository $adminsRepository, ImageUploadHandler $imageUploadHandler, ActionLogsService $actionLogsService)
     {
         $this->uploader = $imageUploadHandler;
         $this->adminsRepository = $adminsRepository;
@@ -132,13 +118,13 @@ class AdminsService
      */
     public function login($request)
     {
-        if(!Auth::guard('admin')->attempt([
-            'name'     => $request->name,
+        if (!Auth::guard('admin')->attempt([
+            'name' => $request->name,
             'password' => $request->password,
-            'status'   => 1,
-        ])){
+            'status' => 1,
+        ])) {
             //记录登录操作记录
-            $this->actionLogsService->loginActionLogCreate($request,false);
+            $this->actionLogsService->loginActionLogCreate($request, false);
             return false;
         }
 
@@ -148,7 +134,7 @@ class AdminsService
         $admin->increment('login_count');
 
         //记录登录操作记录
-        $this->actionLogsService->loginActionLogCreate($request,true);
+        $this->actionLogsService->loginActionLogCreate($request, true);
 
         return true;
     }
